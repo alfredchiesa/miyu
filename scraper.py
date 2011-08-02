@@ -8,7 +8,7 @@ class Scraper():
         that is needed to successuly scrape.
         """
         values = {}
-        self.headers = {"User-Agent": USER_AGENT}
+        self.headers = {"User-Agent": settings.USER_AGENT}
         self.data = urllib.urlencode(values)
     
     def collect_manus(self, **kwargs):
