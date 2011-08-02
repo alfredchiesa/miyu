@@ -8,9 +8,11 @@ class Scraper():
         that is needed to successuly scrape.
         """
         values = {}
-        self.headers = {"User-Agent": settings.USER_AGENT}
         self.data = urllib.urlencode(values)
         self.cookie = cookielib.CookieJar()
+        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+        self.opener.addheaders.append(('User-Agent', settings.USER_AGENT))
+        self.opener.addheaders.append(('Referer', settings.REFERRER))
     
     def collect_manus(self, **kwargs):
         kind = kwargs.get('kind', 'china')
@@ -18,8 +20,7 @@ class Scraper():
             for alpha in settings.MANU_CHINA_ALPHA:
                 self.url = settings.MANU_CHINA_URL + "%s.htm" % alpha
                 print self.url
-                self.request = urllib2.Request(self.url, self.data, self.headers)
-                self.response = urllib2.urlopen(self.request)
+                self.response = self.opener.open(self.url, self.data)
                 self.response = self.response.read()
                 self.pool = BeautifulSoup(self.response)
                 print pool.findAll('div', attrs={'class':'inventory'})
