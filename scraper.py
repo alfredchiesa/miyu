@@ -10,7 +10,7 @@ class Scraper():
         values = {}
         self.data = urllib.urlencode(values)
         self.cookie = cookielib.CookieJar()
-        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cookie))
         self.opener.addheaders.append(('User-Agent', settings.USER_AGENT))
         self.opener.addheaders.append(('Referer', settings.REFERRER))
     
