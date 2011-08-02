@@ -10,10 +10,14 @@ class Scraper():
         values = {}
         self.headers = {"User-Agent": USER_AGENT}
         self.data = urllib.urlencode(values)
-        url = "%s?&Make=%s&Model=%s&LocationID=%s" % (PP_URL, MAKE, MODEL, LOCATION)
-        request = urllib2.Request(url, data, headers)
-        response = urllib2.urlopen(request)
-        page_response = response.read()
-        pool = BeautifulSoup(page_response)
-        
-        results = pool.findAll('div', attrs={'class':'inventory'})
+    
+    def collect_manus(self, **kwargs):
+        kind = kwargs.get('kind', 'china')
+        if kind == 'china':
+            for alpha in settings.MANU_CHINA_ALPHA:
+                self.url = settings.MANU_CHINA_URL + "%s.html" % alpha
+                self.request = urllib2.Request(self.url, self.data, self.headers)
+                self.response = urllib2.urlopen(self.request)
+                self.response = self.response.read()
+                self.pool = BeautifulSoup(self.response)
+                print pool.findAll('div', attrs={'class':'inventory'})
