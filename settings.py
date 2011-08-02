@@ -13,9 +13,12 @@ MANU_SILVER_ALPHA = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', \
 
 
 # the list of manufacturers urls
-MANU_CHINA_URL = "http://replacements.com/china/manu/"
-MANU_CRYSTAL_URL = "http://replacements.com/crystal/manu/"
-MANU_SILVER_URL = "http://replacements.com/silver/manu/"
+MANU_CHINA_URL = "http://www.replacements.com/china/manu/"
+MANU_CRYSTAL_URL = "http://www.replacements.com/crystal/manu/"
+MANU_SILVER_URL = "http://www.replacements.com/silver/manu/"
+
+# fake referring page ;)
+REFERRER = "http://www.replacements.com/index.htm"
 
 #==============================================================================#
 #==============================================================================#
