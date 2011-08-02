@@ -1,5 +1,5 @@
 from BeautifulSoup import BeautifulSoup as BS
-import urllib, urllib2, settings, cookielib
+import urllib, urllib2, settings, cookielib, requests
 
 class Scraper():
     def __init__(self):
@@ -19,8 +19,19 @@ class Scraper():
         if kind == 'china':
             for alpha in settings.MANU_CHINA_ALPHA:
                 self.url = settings.MANU_CHINA_URL + "%s.htm" % alpha
-                print self.url
-                self.response = self.opener.open(self.url, self.data)
-                self.response = self.response.read()
-                self.pool = BeautifulSoup(self.response)
-                print pool.findAll('div', attrs={'class':'inventory'})
+                self.response = requests.get(self.url)
+                if int(self.response.status_code) <= 200:
+                    self.pool = BS(self.response.content)
+                    results = self.pool.findAll('td', attrs={"width": "50%"})
+                    for each in results:
+                        for links in each.findAll('a'):
+                            link = links.attrs[0][1] if links.attrs[0][1] != \
+                            "#top" or "../splash.htm" else "None"
+                            brand = links.string
+                            print brand, link
+                else:
+                    print "can't work on '%s' for you at the moment" % alpha.upper
+                    break
+    
+    def find_patterns(self, **kwargs):
+        pass
