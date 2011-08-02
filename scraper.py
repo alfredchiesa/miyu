@@ -16,6 +16,7 @@ class Scraper():
         if kind == 'china':
             for alpha in settings.MANU_CHINA_ALPHA:
                 self.url = settings.MANU_CHINA_URL + "%s.html" % alpha
+                print self.url
                 self.request = urllib2.Request(self.url, self.data, self.headers)
                 self.response = urllib2.urlopen(self.request)
                 self.response = self.response.read()
