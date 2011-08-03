@@ -17,6 +17,11 @@ MANU_CHINA_URL = "http://www.replacements.com/china/manu/"
 MANU_CRYSTAL_URL = "http://www.replacements.com/crystal/manu/"
 MANU_SILVER_URL = "http://www.replacements.com/silver/manu/"
 
+# the list of pattern urls
+PATT_CHINA_URL = "http://www.replacements.com/china/"
+PATT_CRYSTAL_URL = "http://www.replacements.com/crystal/"
+PATT_SILVER_URL = "http://www.replacements.com/silver/"
+
 # fake referring page ;)
 REFERRER = "http://www.replacements.com/index.htm"
 
