@@ -13,6 +13,9 @@ class Scraper():
         self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cookie))
         self.opener.addheaders.append(('User-Agent', settings.USER_AGENT))
         self.opener.addheaders.append(('Referer', settings.REFERRER))
+        # now lets build a nice csv to store all this crud in
+        csv = open("Results.csv", 'w')
+        csv.write("Manufacturer, Product Type, Pattern Name, Pattern Number, Image\n")
     
     def collect_manus(self, **kwargs):
         kind = kwargs.get('kind', 'china')
@@ -25,8 +28,9 @@ class Scraper():
                     results = self.pool.findAll('td', attrs={"width": "50%"})
                     for each in results:
                         for links in each.findAll('a'):
-                            link = links.attrs[0][1] if links.attrs[0][1] != \
-                            "#top" or "../splash.htm" else "None"
+                            link = links.attrs[0][1].strip("../") if \
+                            links.attrs[0][1] != "#top" or "../splash.htm" \
+                            else "None"
                             brand = links.string
                             print brand, link
                 else:
@@ -34,4 +38,9 @@ class Scraper():
                     break
     
     def find_patterns(self, **kwargs):
-        pass
+        kind = kwargs.get('kind', 'china')
+        if kind == 'china':
+            link = kwargs.get('link', 'None')
+            brand = kwargs.get('brand', 'None')
+            self.patterns = requests.get(settings.PATT_CHINA_URL + link)
+            crumbs = self.pool.findAll('', attrs={"style": "padding:0 15 0 0"})
