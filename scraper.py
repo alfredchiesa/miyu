@@ -56,7 +56,10 @@ class Scraper():
             #crumbs = self.pattList.findAll('a', attrs={"style": "padding:0 15 0 0"})
     
     def get_info(self, **kwargs):
-        pass
+        kind = kwargs.get('kind', 'china')
+        brand = kwargs.get('brand', 'None')
+        link = kwargs.get('kind', 'china')
+        page = BS(requests.get(settings.PATT_CHINA_URL + link).content)
     
     def record_info(self, **kwargs):
         pass
