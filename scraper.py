@@ -70,6 +70,7 @@ class Scraper():
         brand = kwargs.get('brand', 'None')
         link = kwargs.get('link', 'None')
         page = BS(requests.get(settings.ROOT_SITE + link).content)
+        self.csv.write("%s, %s, %s, %s, %s\n" % ())
     
     def record_info(self, **kwargs):
         pass
