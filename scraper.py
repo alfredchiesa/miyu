@@ -18,6 +18,10 @@ class Scraper():
         self.csv.write("Manufacturer, Product Type, Pattern Name, Pattern Number, Image\n")
     
     def collect_manus(self, **kwargs):
+        """
+        Get a big list of all the manufacturers and then go out and scrape their
+        corresponding patterns.
+        """
         kind = kwargs.get('kind', 'china')
         if kind == 'china':
             for alpha in settings.MANU_CHINA_ALPHA:
@@ -39,6 +43,10 @@ class Scraper():
                     break
     
     def find_patterns(self, **kwargs):
+        """
+        This is the method that collects all the links form the manu page and sends
+        them to be recorded in the CSV file.
+        """
         kind = kwargs.get('kind', 'china')
         if kind == 'china':
             link = kwargs.get('link', 'None')
@@ -47,13 +55,14 @@ class Scraper():
             patterns = page.findAll('a')
             for each in patterns:
                 if "padding:0 15 0 0" in str(each):
-                    print each
+                    patLink = each.attrs[0][1].strip("../") if each.attrs[0][1] != "#top" or "../splash.htm" else "None"
+                    print patLink
                 #if "../webquote/" in str(each):
                 #    patLink = each.attrs[0][1].strip("../") if each.attrs[0][1]\
                 #    != "#top" or "../splash.htm" else "None"
                 #    patName = each.string
                 #    print patName, patLink
-            #crumbs = self.pattList.findAll('a', attrs={"style": "padding:0 15 0 0"})
+            #crumbs = self.pattList.findAll('a', attrs={"style": "padding:0 15 0 0"})   
     
     def get_info(self, **kwargs):
         kind = kwargs.get('kind', 'china')
