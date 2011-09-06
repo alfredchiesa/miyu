@@ -14,8 +14,8 @@ class Scraper():
         self.opener.addheaders.append(('User-Agent', settings.USER_AGENT))
         self.opener.addheaders.append(('Referer', settings.REFERRER))
         # now lets build a nice csv to store all this crud in
-        csv = open("Results.csv", 'w')
-        csv.write("Manufacturer, Product Type, Pattern Name, Pattern Number, Image\n")
+        self.csv = open("Results.csv", 'w')
+        self.csv.write("Manufacturer, Product Type, Pattern Name, Pattern Number, Image\n")
     
     def collect_manus(self, **kwargs):
         kind = kwargs.get('kind', 'china')
