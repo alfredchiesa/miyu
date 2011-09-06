@@ -32,7 +32,8 @@ class Scraper():
                             links.attrs[0][1] != "#top" or "../splash.htm" \
                             else "None"
                             brand = links.string
-                            print brand, link
+                            print "trying %s" % str(brand)
+                            self.find_patterns(kind=kind, link=link, brand=brand)
                 else:
                     print "can't work on '%s' for you at the moment" % alpha.upper
                     break
@@ -42,5 +43,20 @@ class Scraper():
         if kind == 'china':
             link = kwargs.get('link', 'None')
             brand = kwargs.get('brand', 'None')
-            self.patterns = requests.get(settings.PATT_CHINA_URL + link)
-            crumbs = self.pool.findAll('', attrs={"style": "padding:0 15 0 0"})
+            page = BS(requests.get(settings.PATT_CHINA_URL + link).content)
+            patterns = page.findAll('a')
+            for each in patterns:
+                if "padding:0 15 0 0" in str(each):
+                    print each
+                #if "../webquote/" in str(each):
+                #    patLink = each.attrs[0][1].strip("../") if each.attrs[0][1]\
+                #    != "#top" or "../splash.htm" else "None"
+                #    patName = each.string
+                #    print patName, patLink
+            #crumbs = self.pattList.findAll('a', attrs={"style": "padding:0 15 0 0"})
+    
+    def get_info(self, **kwargs):
+        pass
+    
+    def record_info(self, **kwargs):
+        pass
