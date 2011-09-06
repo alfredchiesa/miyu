@@ -57,9 +57,10 @@ class Scraper():
     
     def get_info(self, **kwargs):
         kind = kwargs.get('kind', 'china')
+        patName = kwargs.get('patName', 'None')
         brand = kwargs.get('brand', 'None')
-        link = kwargs.get('kind', 'china')
-        page = BS(requests.get(settings.PATT_CHINA_URL + link).content)
+        link = kwargs.get('link', 'None')
+        page = BS(requests.get(settings.ROOT_SITE + link).content)
     
     def record_info(self, **kwargs):
         pass
