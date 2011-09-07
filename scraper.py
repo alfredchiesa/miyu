@@ -60,12 +60,11 @@ class Scraper():
                     patLink = each.attrs[0][1].strip("../") if each.attrs[0][1]\
                     != "#top" or "../splash.htm" else "None"
                     patName = "None"
-                if "../webquote/" in str(each):
+                if "../webquote/" in str(each): 
                     patLink = each.attrs[0][1].strip("../") if each.attrs[0][1]\
                     != "#top" or "../splash.htm" else "None"
                     patName = each.string
                 self.get_info(kind=kind, patName=patName, patLink=patLink, brand=brand)
-            #crumbs = self.pattList.findAll('a', attrs={"style": "padding:0 15 0 0"})   
     
     def get_info(self, **kwargs):
         kind = kwargs.get('kind', 'china')
