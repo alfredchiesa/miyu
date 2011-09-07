@@ -1,5 +1,5 @@
 from BeautifulSoup import BeautifulSoup as BS
-import urllib, urllib2, settings, cookielib, requests
+import urllib, urllib2, settings, cookielib, requests, re
 
 class Scraper():
     def __init__(self):
@@ -54,23 +54,30 @@ class Scraper():
             page = BS(requests.get(settings.PATT_CHINA_URL + link).content)
             patterns = page.findAll('a')
             for each in patterns:
+                patName = None
+                patLink = None
                 if "padding:0 15 0 0" in str(each):
-                    patLink = each.attrs[0][1].strip("../") if each.attrs[0][1] != "#top" or "../splash.htm" else "None"
-                    print patLink
-                #if "../webquote/" in str(each):
-                #    patLink = each.attrs[0][1].strip("../") if each.attrs[0][1]\
-                #    != "#top" or "../splash.htm" else "None"
-                #    patName = each.string
-                #    print patName, patLink
+                    patLink = each.attrs[0][1].strip("../") if each.attrs[0][1]\
+                    != "#top" or "../splash.htm" else "None"
+                    patName = "None"
+                if "../webquote/" in str(each):
+                    patLink = each.attrs[0][1].strip("../") if each.attrs[0][1]\
+                    != "#top" or "../splash.htm" else "None"
+                    patName = each.string
+                self.get_info(kind=kind, patName=patName, patLink=patLink, brand=brand)
             #crumbs = self.pattList.findAll('a', attrs={"style": "padding:0 15 0 0"})   
     
     def get_info(self, **kwargs):
         kind = kwargs.get('kind', 'china')
-        patName = kwargs.get('patName', 'None')
-        brand = kwargs.get('brand', 'None')
-        link = kwargs.get('link', 'None')
-        page = BS(requests.get(settings.ROOT_SITE + link).content)
-        self.csv.write("%s, %s, %s, %s, %s\n" % ())
+        patName = kwargs.get('patName', None)
+        brand = kwargs.get('brand', None)
+        link = kwargs.get('patLink', None)
+        if link:
+            page = BS(requests.get(settings.ROOT_SITE + link).content)
+            regex = re.compile(r"<font color=\"#FF0000\">(.+?)</font>", re.I)
+            result = re.search(regex, str(page))
+            itemNumber = result.group(0).replace("<font color=\"#FF0000\">", '').replace(" ", '').replace("</font>", '')
+        #self.csv.write("%s, %s, %s, %s, %s\n" % ())
     
     def record_info(self, **kwargs):
         pass
