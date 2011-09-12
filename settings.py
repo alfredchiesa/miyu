@@ -7,9 +7,7 @@ MANU_CHINA_ALPHA = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', \
 MANU_CRYSTAL_ALPHA = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', \
                       'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', \
                     'w', 'x', 'y', 'z']
-MANU_SILVER_ALPHA = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', \
-                     'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', \
-                     'w', 'x', 'y', 'z']
+MANU_SILVER_ALPHA = ['w', 'x', 'y', 'z']
 
 # actual root site url
 ROOT_SITE = "http://www.replacements.com/"
